@@ -1,4 +1,8 @@
 package com.example.Splitwise.exceptions;
 
-public class InvalidNameException {
+public class InvalidNameException extends Exception{
+    public InvalidNameException(String name){
+        super(name);
+    }
+
 }

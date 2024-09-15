@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateUserRepsonseDto extends ResponseDto{
-
+public class UpdateGroupRequestDto {
+    Long User_id;
+    String Name;
 }

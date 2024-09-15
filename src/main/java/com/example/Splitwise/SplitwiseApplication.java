@@ -1,21 +1,24 @@
 package com.example.Splitwise;
 
+import com.example.Splitwise.controller.GroupController;
 import com.example.Splitwise.controller.UserController;
-import com.example.Splitwise.dto.CreateUserRequestDto;
-import com.example.Splitwise.dto.CreateUserResponseDto;
-import com.example.Splitwise.dto.UpdateUserRepsonseDto;
-import com.example.Splitwise.dto.UpdateUserRequestDto;
+import com.example.Splitwise.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
+
 @SpringBootApplication
 public class SplitwiseApplication implements CommandLineRunner {
 	UserController userController;
+	GroupController groupController;
 	@Autowired
-	public SplitwiseApplication(UserController userController){
+	public SplitwiseApplication(UserController userController,
+								GroupController groupController){
 		this.userController=userController;
+		this.groupController=groupController;
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(SplitwiseApplication.class, args);
@@ -34,6 +37,14 @@ public class SplitwiseApplication implements CommandLineRunner {
 		updateUser.setPassword("12345678");
 		UpdateUserRepsonseDto updateUserRepsonseDto=this.userController.updateUser(updateUser);
 		System.out.println(updateUserRepsonseDto.getResponseStatusDto());
+
+		CreateGroupRequestDto createGroup=new CreateGroupRequestDto();
+		createGroup.setName("Goa");
+		createGroup.setCreatedBy(1L);
+		createGroup.setParticipants(List.of(1L));
+
+		CreateUserResponseDto createUserResponseDto= groupController.createGroup(createGroup);
+		System.out.println(createUserResponseDto.getResponseStatusDto());
 
 	}
 

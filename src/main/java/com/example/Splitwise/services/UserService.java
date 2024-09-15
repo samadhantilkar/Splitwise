@@ -18,6 +18,16 @@ public class UserService {
     UserService(UserRepository userRepository   ){
         this.userRepository=userRepository;
     }
+
+    public User FindUserById(Long id)throws Exception{
+        Optional<User> user=userRepository.findById(id);
+        if(user.isEmpty()){
+            throw new InvalidIdException("Invalid User Id");
+        }
+        return user.get();
+    }
+
+
     public User createUser(User user){
         user.setPassword(passwordEncoder.getEncodedPassword(user.getPassword()));
         User savedUser= userRepository.save(user);

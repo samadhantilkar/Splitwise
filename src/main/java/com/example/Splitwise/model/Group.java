@@ -3,10 +3,14 @@ package com.example.Splitwise.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 @Entity(name = "Groups")
+@Setter
+@Getter
 public class Group extends BaseModel{
     String name;
 //    G:P

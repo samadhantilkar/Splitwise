@@ -43,6 +43,7 @@ public class UserController {
         user.setPassword(createUserRequestDto.getPassword());
 
         User savedUser=userService.createUser(user);
+        System.out.println(savedUser.getPassword());
 
         CreateUserResponseDto userResponseDto=new CreateUserResponseDto();
         userResponseDto.setUser(savedUser);

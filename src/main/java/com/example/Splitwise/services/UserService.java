@@ -3,6 +3,7 @@ package com.example.Splitwise.services;
 import com.example.Splitwise.exceptions.InvalidIdException;
 import com.example.Splitwise.model.User;
 import com.example.Splitwise.repositories.UserRepository;
+import com.example.Splitwise.services.passwordencoder.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +11,18 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    UserService(UserRepository userRepository){
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    UserService(UserRepository userRepository   ){
         this.userRepository=userRepository;
     }
     public User createUser(User user){
-           User savedUser= userRepository.save(user);
-           return savedUser;
+        user.setPassword(passwordEncoder.getEncodedPassword(user.getPassword()));
+        User savedUser= userRepository.save(user);
+        savedUser.setPassword(passwordEncoder.getEncodedPassword(savedUser.getPassword()));
+        return savedUser;
     }
 
     public User updateUser(User user) throws Exception{
@@ -28,10 +33,24 @@ public class UserService {
         }
         User optUser=optionalUser.get();
 //        Set Password
-        optUser.setPassword(user.getPassword());
+        optUser.setPassword(passwordEncoder.getEncodedPassword(user.getPassword()));
 //        Saved User
         User savedUser=userRepository.save(optUser);
 //        Return User
         return savedUser;
+    }
+
+    private boolean checkPasswordMatch(Long userId,String password){
+        User user=userRepository.getById(userId);
+
+        String encodedPass=passwordEncoder.getEncodedPassword(password);
+
+        if(!passwordEncoder.matches(encodedPass,user.getPassword())){
+            System.out.println("Password Error");
+            return true;
+        }else {
+            System.out.println("Login Successful ");
+        }
+        return false;
     }
 }

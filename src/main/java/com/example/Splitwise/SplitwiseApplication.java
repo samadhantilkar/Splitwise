@@ -46,6 +46,13 @@ public class SplitwiseApplication implements CommandLineRunner {
 		CreateUserResponseDto createUserResponseDto= groupController.createGroup(createGroup);
 		System.out.println(createUserResponseDto.getResponseStatusDto());
 
+		UpdateGroupRequestDto updateGroupRequestDto=new UpdateGroupRequestDto();
+		updateGroupRequestDto.setName("Bengalore");
+		updateGroupRequestDto.setUserid(1L);
+
+		UpdateGroupResponesDto updateGroupResponesDto=groupController.updateGroup(updateGroupRequestDto);
+
+
 	}
 
 }

@@ -24,7 +24,10 @@ public class GroupController {
         return responseDto;
     }
 
-    public UpdateUserRepsonseDto updateGroupName(UpdateGroupRequestDto requestDto){
-
+    public UpdateGroupResponesDto updateGroup(UpdateGroupRequestDto requestDto)throws Exception{
+        Group updatedGroup=groupService.updateGroupName(requestDto);
+        UpdateGroupResponesDto groupResponesDto=new UpdateGroupResponesDto();
+        groupResponesDto.setResponseStatusDto(ResponseStatusDto.SUCCESS);
+        return groupResponesDto;
     }
 }

@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateGroupRequestDto {
-    Long User_id;
+    Long Userid;
     String Name;
 }

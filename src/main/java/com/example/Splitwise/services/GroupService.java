@@ -1,6 +1,7 @@
 package com.example.Splitwise.services;
 
 import com.example.Splitwise.dto.CreateGroupRequestDto;
+import com.example.Splitwise.dto.UpdateGroupRequestDto;
 import com.example.Splitwise.exceptions.InvalidIdException;
 import com.example.Splitwise.model.Group;
 import com.example.Splitwise.model.User;
@@ -53,9 +54,16 @@ public class GroupService {
         return savedGroup;
     }
 
-//    public Group updateGroup(Group group,Long id){
-//        Group
-//    }
+    public Group updateGroupName(UpdateGroupRequestDto requestDto)throws Exception{
+        Optional<Group> optionalGroup=groupRepository.findById(requestDto.getUserid());
+        if(optionalGroup.isEmpty()){
+            throw new InvalidIdException("Group Not Found");
+        }
+        Group group= optionalGroup.get();
+        group.setName(requestDto.getName());
+        Group savedGroup=groupRepository.save(group);
+        return group;
+    }
 
 
 }

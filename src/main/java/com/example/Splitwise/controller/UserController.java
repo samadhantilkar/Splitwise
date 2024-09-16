@@ -17,7 +17,7 @@ public class UserController {
         this.userService=userService;
     }
 
-    public UpdateUserRepsonseDto updateUser(UpdateUserRequestDto updateUserRequestDto) throws Exception{
+    public UpdateUserRepsonseDto updateProfile(UpdateUserRequestDto updateUserRequestDto) throws Exception{
         if(updateUserRequestDto.getPassword().length()<8){
             throw new InvalidPasswordException("Password Length less than 8");
         }
@@ -34,7 +34,7 @@ public class UserController {
 
 
 
-    public CreateUserResponseDto createUser(CreateUserRequestDto createUserRequestDto) throws Exception {
+    public CreateUserResponseDto registerUser(CreateUserRequestDto createUserRequestDto) throws Exception {
         if(createUserRequestDto.getName().matches(".*\\d.*")){
             throw  new InvalidNameException("Name contains a number.");
         }
@@ -44,7 +44,7 @@ public class UserController {
         user.setPassword(createUserRequestDto.getPassword());
 
         User savedUser=userService.createUser(user);
-
+        System.out.println(savedUser.getId()+" "+savedUser.getName() +" "+savedUser.getPassword()+" "+savedUser.getPhone_number());
         CreateUserResponseDto userResponseDto=new CreateUserResponseDto();
         userResponseDto.setResponseStatusDto(ResponseStatusDto.SUCCESS);
         return userResponseDto;

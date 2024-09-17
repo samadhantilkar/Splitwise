@@ -4,14 +4,12 @@ import com.example.Splitwise.commands.CommandRegistry;
 import com.example.Splitwise.controller.GroupController;
 import com.example.Splitwise.controller.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Scanner;
-
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication
-public class SplitwiseApplication implements CommandLineRunner {
+@EnableJpaAuditing
+public class SplitwiseApplication  {
 	UserController userController;
 	GroupController groupController;
 	@Autowired
@@ -56,12 +54,12 @@ public class SplitwiseApplication implements CommandLineRunner {
 //
 //
 //	}
-	public void run(String[] args) throws Exception{
-		Scanner scanner=new Scanner(System.in);
-		while(true){
-			String input=scanner.nextLine();
-			commandRegistry.execute(input);
-		}
-	}
+//	public void run(String[] args) throws Exception{
+//		Scanner scanner=new Scanner(System.in);
+//		while(true){
+//			String input=scanner.nextLine();
+//			commandRegistry.execute(input);
+//		}
+//	}
 
 }

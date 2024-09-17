@@ -5,7 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateUserRequestDto extends ResponseDto{
+public class UpdateUserRequestDto{
     String password;
     Long id;
 }
+//{
+//    "password":"samadhan",
+//    "id":"1"
+//}

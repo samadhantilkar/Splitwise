@@ -6,9 +6,12 @@ import com.example.Splitwise.exceptions.InvalidPasswordException;
 import com.example.Splitwise.model.User;
 import com.example.Splitwise.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class UserController {
     UserService userService;
     @Autowired
@@ -17,7 +20,8 @@ public class UserController {
         this.userService=userService;
     }
 
-    public UpdateUserRepsonseDto updateProfile(UpdateUserRequestDto updateUserRequestDto) throws Exception{
+    @PutMapping("/user/update")
+    public UpdateUserRepsonseDto updateProfile(@RequestBody UpdateUserRequestDto updateUserRequestDto) throws Exception{
         if(updateUserRequestDto.getPassword().length()<8){
             throw new InvalidPasswordException("Password Length less than 8");
         }
@@ -32,9 +36,9 @@ public class UserController {
         return updateUserRepsonseDto;
     }
 
-
-
-    public CreateUserResponseDto registerUser(CreateUserRequestDto createUserRequestDto) throws Exception {
+//     /user/get/id  ->@PathVariable
+    @PostMapping("/user/register")
+    public CreateUserResponseDto registerUser(@RequestBody CreateUserRequestDto createUserRequestDto) throws Exception {
         if(createUserRequestDto.getName().matches(".*\\d.*")){
             throw  new InvalidNameException("Name contains a number.");
         }

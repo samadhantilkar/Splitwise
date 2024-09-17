@@ -11,3 +11,9 @@ public class CreateUserRequestDto {
     String password;
 
 }
+
+//{
+//    name:"samadhan",
+//    phone_Number: "9322302497",
+//    password:"password",
+//}
